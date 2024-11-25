@@ -37,6 +37,17 @@ return (
 }
 
 function ProductItem(props) {
+    let [quantity, setQuantity] = useState(Number(props.quantity))
+    function decrement() {
+        if(quantity > 1) {
+            setQuantity(quantity - 1)
+        }
+    }
+
+    function increment() {
+        setQuantity(quantity + 1)
+    }
+
     return (
         <div className="row border-bottom align-items-center">
                 <div className="col-4">
@@ -48,14 +59,30 @@ function ProductItem(props) {
                     </p>
                 </div>
                 <div className="col-2">
-                    <Counter>{props.quantity}</Counter>
+                    <ControlledCounter decrement={decrement} increment={increment}>{quantity}</ControlledCounter>
                 </div>
                 <div className="col-2">
-                    <span>${props.unitPrice * props.quantity}</span>
+                    <span>${props.unitPrice * quantity}</span>
                 </div>
                 <div className="col-4">
                     <button type="button" className="btn btn-danger btn-sm">Delete</button>
                 </div>
+        </div>
+    )
+}
+
+function ControlledCounter(props) {
+    return (
+        <div>
+            <button type="button" 
+            className="btn btn-outline-secondary btn-sm"
+            onClick={props.decrement}> - </button>
+
+            <span className="rounded-3 border p-1 m-2"> {props.children} </span>
+
+            <button type="button" 
+            className="btn btn-outline-secondary btn-sm"
+            onClick={props.increment}> + </button>
         </div>
     )
 }
