@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 let products = [
     { name: "Samsung Galaxy 100", brand: "Samsung", category: "Phones", unitPrice:899, quantity:3 },
     { name: "iPhone14", brand: "Apple", category: "phones", unitPrice:949, quantity:2 },
@@ -46,7 +48,7 @@ function ProductItem(props) {
                     </p>
                 </div>
                 <div className="col-2">
-                    <span className="rounded border m-1 p-1">{props.quantity}</span>
+                    <Counter>{props.quantity}</Counter>
                 </div>
                 <div className="col-2">
                     <span>${props.unitPrice * props.quantity}</span>
@@ -54,6 +56,35 @@ function ProductItem(props) {
                 <div className="col-4">
                     <button type="button" className="btn btn-danger btn-sm">Delete</button>
                 </div>
+        </div>
+    )
+}
+
+function Counter(props) {
+    //let quantity = props.children
+    let [quantity, setQuantity] = useState(Number(props.children))
+
+    function decrement() {
+        if(quantity > 1) {
+            setQuantity(quantity - 1)
+        }
+    }
+
+    function increment() {
+        setQuantity(quantity + 1)
+    }
+
+    return (
+        <div>
+            <button type="button" 
+            className="btn btn-outline-secondary btn-sm"
+            onClick={decrement}> - </button>
+
+            <span className="rounded-3 border p-1 m-2"> {quantity} </span>
+
+            <button type="button" 
+            className="btn btn-outline-secondary btn-sm"
+            onClick={increment}> + </button>
         </div>
     )
 }
