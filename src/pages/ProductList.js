@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { AddProductForm1 } from "../components/forms"
 
 let initialProducts = [
     { name: "Samsung Galaxy 100", brand: "Samsung", category: "Phones", unitPrice:899, quantity:3 },
@@ -15,8 +16,13 @@ export default function ProductList() {
         setProducts(newProducts)
    }
 
+   function addProduct(product) {
+        setProducts([...products, product])
+   }
+
     return (
         <div className="container py-5">
+            <AddProductForm1 addProduct={addProduct}/>
             {
                 products.map((product, idx) => {
                     return (
